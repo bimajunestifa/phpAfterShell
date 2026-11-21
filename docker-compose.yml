@@ -1,0 +1,29 @@
+services:
+  web:
+    build: ./php
+    ports:
+      - "8080:80"
+    volumes:
+      - session_data:/var/lib/php/sessions
+    cap_add:
+      - SYS_PTRACE
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost/index.php"]
+      interval: 2s
+      timeout: 2s
+      retries: 15
+      start_period: 3s
+
+  interrupt:
+    build: ./interrupt
+    volumes:
+      - session_data:/var/lib/php/sessions
+    pid: "service:web"
+    cap_add:
+      - SYS_PTRACE
+    depends_on:
+      web:
+        condition: service_healthy
+
+volumes:
+  session_data:

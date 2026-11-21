@@ -3,28 +3,17 @@
 # by Cotab1mzz
 set -u
 
-if [ -t 1 ]; then
-  CYAN=$'[96;1m'; MAGENTA=$'[95;1m'; RESET=$'[0m'
+if [ -z "${NO_COLOR:-}" ]; then
+  CYAN=$'[96;1m'
+  MAGENTA=$'[95;1m'
+  RESET=$'[0m'
 else
   CYAN=''; MAGENTA=''; RESET=''
 fi
-printf '%s' "$CYAN"
-cat <<'EOF'
-#####   #   #  #####
-#      #   #  #   #
-#      #####  #####
-#      #   #  #   #
-#      #   #  #   #
-EOF
-printf '%s' "$MAGENTA"
-cat <<'EOF'
- ####  #####  #####  #####  #   #  #####  #     #     #####
-#      #   #  #   #  #      #   #  #      #     #     #   #
- ###   #   #  #####  ####   #####  ####   #     #     #   #
-    #  #  #   #  #   #      #  #   #      #     #     #   #
-####   #   #  #   #  #####  #   #  #####  ##### ##### #####
-EOF
-printf '%s  phpAfterShell  |  by Cotab1mzz  |  interrupt agent%s\n\n' "$RESET" "$RESET"
+printf '%s+--------------------------------------+%s\n' "$CYAN" "$RESET"
+printf '%s|  PHP %sAFTERSHELL%s                      |%s\n' "$CYAN" "$MAGENTA" "$CYAN" "$RESET"
+printf '%s+--------------------------------------+%s\n' "$CYAN" "$RESET"
+printf '  by Cotab1mzz  |  interrupt agent\n\n'
 
 THRESHOLD="${SESSION_THRESHOLD:-150000}"
 POLL="${POLL_INTERVAL:-0.002}"

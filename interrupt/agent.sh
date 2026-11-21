@@ -4,9 +4,9 @@
 set -u
 
 if [ -z "${NO_COLOR:-}" ]; then
-  CYAN=$'[96;1m'
-  MAGENTA=$'[95;1m'
-  RESET=$'[0m'
+  CYAN="$(printf '\033[96;1m')"
+  MAGENTA="$(printf '\033[95;1m')"
+  RESET="$(printf '\033[0m')"
 else
   CYAN=''; MAGENTA=''; RESET=''
 fi
@@ -15,8 +15,8 @@ printf '%s|  PHP %sAFTERSHELL%s                      |%s\n' "$CYAN" "$MAGENTA" "
 printf '%s+--------------------------------------+%s\n' "$CYAN" "$RESET"
 printf '  by Cotab1mzz  |  interrupt agent\n\n'
 
-THRESHOLD="${SESSION_THRESHOLD:-150000}"
-POLL="${POLL_INTERVAL:-0.002}"
+THRESHOLD="${SESSION_THRESHOLD:-100000}"
+POLL="${POLL_INTERVAL:-0.001}"
 SESS_DIR="/var/lib/php/sessions"
 
 echo "[agent] start threshold=${THRESHOLD} poll=${POLL}"
